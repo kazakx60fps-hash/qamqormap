@@ -90,8 +90,13 @@ fs.cpSync(path.join(root, 'public'), OUT, { recursive: true });
 fs.mkdirSync(path.join(OUT, 'data'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'data', 'demo-snapshot.json'), json);
 
+// Кэш: GitHub Pages файлдарды ~10 минут кэштейді. Жаңартудан кейін ескі JS/CSS жүктелмеуі үшін
+// js/ мен css/ папкалары нұсқа белгісі бар атпен жарияланады (ішкі салыстырмалы импорттар өзгермейді).
+const VER = (process.env.GITHUB_SHA || Date.now().toString(36)).slice(0, 10);
 let html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
+html = html.replace(/(href|src)="\/(js|css)\//g, `$1="/$2-${VER}/`);
 html = html.replace(/(href|src)="\/(?!\/)/g, `$1="${BASE}/`);
+for (const d of ['js', 'css']) fs.cpSync(path.join(OUT, d), path.join(OUT, `${d}-${VER}`), { recursive: true }); // ескі кэштегі HTML үшін түпнұсқа папкалар да қалады
 html = html.replace('<meta charset="utf-8" />', `<meta charset="utf-8" />\n  <meta name="qm-base" content="${BASE}" />\n  <meta name="qm-static" content="1" />${REPO ? `\n  <meta name="qm-repo" content="${REPO}" />` : ''}`);
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, '404.html'), html); // GitHub Pages: /qamqormap/map сияқты маршруттар да ашылады
