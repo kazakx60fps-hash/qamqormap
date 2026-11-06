@@ -36,8 +36,8 @@ jobs:
       DEMO_DATABASE_URL: postgres://qamqor:ci_only_password@localhost:5432/qamqormap_demo
       RATE_LIMIT_SCALE: '100'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -55,7 +55,7 @@ jobs:
         if: failure()
         run: cat server.log || true
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist-pages
 
