@@ -80,19 +80,18 @@ Say "     ал Expo Go-да оң жақ жоғарғы бұрыштағы бел
 Say "  4. Бұрын қосымшада сервер мекенжайын қолмен жазған болсаңыз: Профиль → Сервер мекенжайы → «Әдепкі мекенжайға қайтару»." 'Yellow'
 Say "Бұл терезені және сервер терезесін ЖАППАҢЫЗ — Expo Go осы компьютердегі серверден жұмыс істейді. Тоқтату: Ctrl+C." 'Red'
 Say ""
-# iPhone-дағы Expo Go үшін Expo CLI-ге кіру керек (бір рет; кейін есте сақталады). Кіру браузер арқылы — құпиясөз терезеге жазылмайды.
-$who = (& npx expo whoami 2>$null) | Out-String
-if ($LASTEXITCODE -ne 0 -or $who -match 'Not logged in' -or -not $who.Trim()) {
-  Say "Expo CLI-ге кірілмеген. iPhone-да Expo Go-мен ашу үшін бір рет кіру керек (Android-та міндетті емес)." 'Yellow'
-  $ans = Read-Host "Қазір браузер арқылы кіресіз бе? Enter = иә, N = жоқ"
-  if ($ans -notmatch '^[NnНн]') {
-    & npx expo login --browser
-    if ($LASTEXITCODE -eq 0) { $who = ((& npx expo whoami) | Out-String).Trim(); Say "Expo CLI-ге кірдіңіз: $who" 'Green' }
-    else { Say "Кіру аяқталмады. Кейін қолмен: cd mobile, сосын npx expo login" 'Yellow' }
-  }
+# iPhone-дағы Expo Go үшін Expo CLI-ге кіру керек (бір рет; кейін есте сақталады).
+# Тексеріс ешқашан скриптті тоқтатпайды: кірмеген болса да QR-код шығады (Android-та аккаунт керек емес).
+$ErrorActionPreference = 'Continue'
+$who = ''
+try { $who = (cmd /c "npx expo whoami 2>&1" | Out-String).Trim() } catch { $who = '' }
+if ($LASTEXITCODE -ne 0 -or -not $who -or $who -match 'Not logged in') {
+  Say "Expo CLI-ге кірілмеген — iPhone-дағы Expo Go жобаны ашпайды (Android-та міндетті емес)." 'Yellow'
+  Say "Кіру үшін: осы терезені жабыңыз да, Expo-Kiru.bat файлын іске қосыңыз." 'Yellow'
 } else {
-  Say "Expo CLI аккаунты: $($who.Trim())  (Expo Go-да да осы аккаунт болуы керек)" 'Green'
+  Say "Expo CLI аккаунты: $who  (iPhone-дағы Expo Go-да да осы аккаунт болуы керек)" 'Green'
 }
+Say ""
 
 if ($mode -eq 'tunnel') {
   # Expo SDK 58: жай --tunnel Expo аккаунтын талап етеді; "--tunnel ngrok" аккаунтсыз жұмыс істейді
