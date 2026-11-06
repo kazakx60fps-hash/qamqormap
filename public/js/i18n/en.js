@@ -392,7 +392,7 @@ export default {
   about: {
     title: 'From a call for help to a confirmed result',
     lead: 'QamqorMap is a web platform that uses a map to connect people who need help, volunteers and coordinators. It answers the questions: who needs what help, and where; who will provide it; and was the help actually provided?',
-    team: 'Developed by {names}. Group 2504', names: 'Kassenov Beknur and Kairolla Damir',
+    team: 'Developed by {names}. Group 2504', names: 'Kassenov Beknur, Kairolla Damir and Sarybayev Adlet',
     featuresEyebrow: 'Features', featuresTitle: 'What the platform can do',
     f: {
       map: { title: 'Interactive map', text: '{count} cities, markers by category and status, clustering of nearby points, distance search.' },

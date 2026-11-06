@@ -967,7 +967,7 @@ export default {
   "title": "From a call for help to a confirmed result",
   "lead": "QamqorMap is a web platform that uses a map to connect people who need help, volunteers and coordinators. It answers the questions: who needs what help, and where; who will provide it; and was the help actually provided?",
   "team": "Developed by {names}. Group 2504",
-  "names": "Kassenov Beknur and Kairolla Damir",
+  "names": "Kassenov Beknur, Kairolla Damir and Sarybayev Adlet",
   "featuresEyebrow": "Features",
   "featuresTitle": "What the platform can do",
   "f": {
@@ -1477,6 +1477,8 @@ export default {
   "resetView": "Show all of Kazakhstan"
  },
  "staticDemo": {
+  "short": "Demo version: training data, no sign-in or requests.",
+  "moreShort": "Details",
   "banner": "Demo version (GitHub Pages): the data are training examples and no server is connected. Sign-in and requests work on the full server.",
   "more": "How to run the full version"
  }

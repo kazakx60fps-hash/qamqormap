@@ -72,6 +72,6 @@ export default {
     privacyTitle: 'Personal data',
     token: 'The sign-in token is kept in the phone’s secure storage (Keychain / Keystore); the server stores only its hash.',
     teamTitle: 'Project authors',
-    team: 'Developed by: Kassenov Beknur, Kairolla Damir. Group: 2504',
+    team: 'Developed by: Kassenov Beknur, Kairolla Damir, Sarybayev Adlet. Group: 2504',
   },
 };
