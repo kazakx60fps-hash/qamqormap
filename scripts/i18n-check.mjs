@@ -18,7 +18,7 @@ async function scan(page) {
   });
 }
 
-const PAGES = (process.env.PAGES || '/?city=1;/map?city=1;/map?city=56&dir=disaster;/disasters?city=all;/events/1?city=56;/requests/1?city=1;/about;/login;/register').split(';');
+const PAGES = (process.env.PAGES || '/?city=1;/map?city=1;/map?city=56&dir=disaster;/disasters?city=all;/events/1?city=56;/requests/1?city=1;/about;/login;/register;/incidents;/incidents?g=fire&at=3').split(';');
 const USERS = (process.env.USERS || ',coordinator@demo.qamqormap.kz,kzo.coord@demo.qamqormap.kz').split(',');
 const AUTH_PAGES = ['/dashboard?city=1', '/dashboard?tab=notifications&city=1', '/dashboard?tab=profile&city=1', '/requests/new?city=1', '/coordinator?city=1', '/coordinator?view=reports&city=1', '/events/new?city=1', '/requests/2?city=1'];
 
