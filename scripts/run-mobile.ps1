@@ -87,7 +87,7 @@ if ($LASTEXITCODE -ne 0 -or $who -match 'Not logged in' -or -not $who.Trim()) {
   $ans = Read-Host "Қазір браузер арқылы кіресіз бе? Enter = иә, N = жоқ"
   if ($ans -notmatch '^[NnНн]') {
     & npx expo login --browser
-    if ($LASTEXITCODE -eq 0) { Say "Expo CLI-ге кірдіңіз: $((& npx expo whoami) | Out-String)".Trim() 'Green' }
+    if ($LASTEXITCODE -eq 0) { $who = ((& npx expo whoami) | Out-String).Trim(); Say "Expo CLI-ге кірдіңіз: $who" 'Green' }
     else { Say "Кіру аяқталмады. Кейін қолмен: cd mobile, сосын npx expo login" 'Yellow' }
   }
 } else {
