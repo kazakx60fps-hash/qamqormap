@@ -1,0 +1,24 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/shared/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-web",
+    "scripts"
+  ]
+}

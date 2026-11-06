@@ -1,0 +1,44 @@
+{
+  "name": "qamqormap",
+  "version": "2.0.0",
+  "description": "QamqorMap — көмек қажет адамдар мен еріктілерді байланыстыратын платформа",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "migrate": "node server/db/migrate.js",
+    "seed": "node server/db/seed.js",
+    "make-coordinator": "node scripts/make-coordinator.js",
+    "test": "node --test --test-concurrency=1 tests/api.test.js tests/mobile-api.test.js tests/org-api.test.js tests/incidents-api.test.js tests/i18n.test.js",
+    "setup": "npm run migrate && npm run seed",
+    "check:i18n": "node scripts/i18n-check.mjs",
+    "demo:setup": "node scripts/demo.mjs setup",
+    "demo:reset": "node scripts/demo.mjs reset",
+    "demo": "node scripts/demo.mjs start",
+    "org": "node scripts/org.js",
+    "e2e:org": "node scripts/e2e-org.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
+    "serve:pages": "node scripts/serve-pages.mjs",
+    "e2e:pages": "node scripts/e2e-pages.mjs",
+    "mobile": "cd mobile && npx expo start --tunnel --clear",
+    "mobile:lan": "cd mobile && npx expo start --lan --clear"
+  },
+  "dependencies": {
+    "@fontsource/manrope": "^5.3.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.9",
+    "express": "^4.22.3",
+    "express-rate-limit": "^8.7.2",
+    "helmet": "^8.3.0",
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "multer": "^2.5.0",
+    "pg": "^8.23.1",
+    "sharp": "^0.35.5"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}

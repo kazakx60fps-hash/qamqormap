@@ -1,0 +1,19 @@
+# Render Blueprint: толық нұсқа (сайт + REST API) тегін Web Service ретінде. Толығырақ: DEPLOY.md
+# PostgreSQL — Neon (тегін). DATABASE_URL мәнін Render баптауына өзіңіз жазасыз; ол репозиторийде сақталмайды.
+services:
+  - type: web
+    name: qamqormap
+    runtime: node
+    plan: free
+    buildCommand: npm ci --no-audit --no-fund
+    startCommand: npm run migrate && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"

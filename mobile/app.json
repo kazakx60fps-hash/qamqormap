@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "QamqorMap",
+    "slug": "qamqormap",
+    "scheme": "qamqormap",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F6F7FB",
+    "description": "QamqorMap — көмек қажет адамдар мен еріктілерді байланыстыратын карта.",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "kz.qamqormap.app",
+      "infoPlist": {
+        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true, "NSAllowsLocalNetworking": true },
+        "NSLocalNetworkUsageDescription": "QamqorMap компьютердегі QamqorMap серверіне жергілікті желі арқылы қосылады.",
+        "NSPhotoLibraryUsageDescription": "Өтінішке фото тіркеу үшін галереяға рұқсат керек.",
+        "NSCameraUsageDescription": "Өтінішке фото түсіру үшін камераға рұқсат керек."
+      }
+    },
+    "android": {
+      "package": "kz.qamqormap.app",
+      "versionCode": 1,
+      "softwareKeyboardLayoutMode": "resize",
+      "adaptiveIcon": {
+        "backgroundColor": "#2457F5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": ["android.permission.INTERNET"],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      ["expo-build-properties", { "android": { "usesCleartextTraffic": true } }],
+      ["expo-image-picker", {
+        "photosPermission": "Өтінішке фото тіркеу үшін галереяға рұқсат керек.",
+        "cameraPermission": "Өтінішке фото түсіру үшін камераға рұқсат керек."
+      }]
+    ],
+    "extra": {
+      "apiUrl": ""
+    }
+  }
+}

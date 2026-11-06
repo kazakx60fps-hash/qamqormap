@@ -1,0 +1,25 @@
+# Тәуелділіктер
+node_modules/
+
+# Құпия баптаулар — репозиторийге ЕШҚАШАН салынбайды (үлгі: .env.example)
+.env
+.env.*
+!.env.example
+
+# Жүктелген файлдар және тест файлдары
+uploads/*
+!uploads/.gitkeep
+uploads-test/
+
+# Жиналған нұсқалар (GitHub Actions өзі жинайды)
+dist-pages/
+mobile/dist/
+mobile/dist-web/
+mobile/.expo/
+
+# Тексеру скриншоттары мен уақытша файлдар
+screenshots/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

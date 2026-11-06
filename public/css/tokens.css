@@ -1,0 +1,84 @@
+/* QamqorMap дизайн жүйесі: түстер, өлшемдер, шегіністер, радиустар, көлеңкелер және күйлер */
+:root {
+  /* Негізгі палитра */
+  --c-primary: #2457F5;
+  --c-primary-600: #1B46D6;
+  --c-primary-700: #1538AD;
+  --c-primary-50: #EEF2FF;
+  --c-primary-100: #DCE5FE;
+  --c-ink: #14213D;
+  --c-ink-2: #3A4766;
+  --c-muted: #5D6884;
+  --c-subtle: #8A93AB;
+  --c-bg: #F6F7FB;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #F0F2F8;
+  --c-border: #E2E6F0;
+  --c-border-strong: #CBD2E1;
+  --c-coral: #FF7856;
+  --c-coral-600: #F05A35;
+  --c-coral-50: #FFF1EC;
+  --c-green: #16A34A;
+  --c-green-700: #11823B;
+  --c-green-50: #E9F8EF;
+  --c-amber: #B7791F;
+  --c-amber-50: #FDF4E3;
+  --c-red: #D7373F;
+  --c-red-50: #FDECEC;
+  --c-violet: #7C5CF2;
+  --c-violet-50: #F1EDFE;
+  --c-footer: #0D1730;
+  --c-footer-2: #16224A;
+
+  /* Мәртебелер */
+  --st-open: var(--c-primary);
+  --st-open-bg: var(--c-primary-50);
+  --st-assigned: var(--c-violet);
+  --st-assigned-bg: var(--c-violet-50);
+  --st-progress: var(--c-amber);
+  --st-progress-bg: var(--c-amber-50);
+  --st-awaiting: var(--c-coral-600);
+  --st-awaiting-bg: var(--c-coral-50);
+  --st-done: var(--c-green-700);
+  --st-done-bg: var(--c-green-50);
+  --st-cancel: var(--c-muted);
+  --st-cancel-bg: var(--c-surface-2);
+
+  /* Типографика */
+  --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --fs-hero: clamp(2.5rem, 1.2rem + 4.6vw, 4.75rem);
+  --fs-h1: clamp(2rem, 1.4rem + 2vw, 3rem);
+  --fs-h2: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+  --fs-h3: clamp(1.15rem, 1.05rem + .4vw, 1.375rem);
+  --fs-lg: 1.125rem;
+  --fs-md: 1.0625rem;
+  --fs-sm: .9375rem;
+  --fs-xs: .8125rem;
+  --lh: 1.6;
+
+  /* Шегіністер */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px;
+  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-24: 96px;
+  --container: 1240px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --header-h: 72px;
+
+  /* Радиустар */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 26px; --r-pill: 999px;
+
+  /* Көлеңкелер */
+  --sh-1: 0 1px 2px rgba(20, 33, 61, .06), 0 1px 1px rgba(20, 33, 61, .04);
+  --sh-2: 0 6px 20px -6px rgba(20, 33, 61, .14), 0 2px 6px rgba(20, 33, 61, .05);
+  --sh-3: 0 24px 60px -18px rgba(20, 33, 61, .28), 0 8px 18px -8px rgba(20, 33, 61, .12);
+  --sh-focus: 0 0 0 3px rgba(36, 87, 245, .35);
+
+  /* Қозғалыс */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --t-fast: 140ms;
+  --t-med: 260ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-med: 0ms; }
+  *, *::before, *::after { animation-duration: 0ms !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
+}

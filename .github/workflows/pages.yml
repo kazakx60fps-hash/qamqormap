@@ -1,0 +1,70 @@
+# GitHub Pages: статикалық демо нұсқаны жинап жариялау.
+# Әр push (main) кезінде: PostgreSQL сервисінде демо дерекқор жасалады → сервер іске қосылады →
+# жария оқу деректерінің снапшоты алынады → dist-pages/ жарияланады.
+# Құпиялар қажет емес: демо дерекқор тек осы уақытша машинада тұрады және жұмыс біткенде жойылады.
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: qamqor
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: qamqormap
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U qamqor" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://qamqor:ci_only_password@localhost:5432/qamqormap
+      DEMO_DATABASE_URL: postgres://qamqor:ci_only_password@localhost:5432/qamqormap_demo
+      RATE_LIMIT_SCALE: '100'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Демо дерекқор (миграциялар + оқу деректері)
+        run: node scripts/demo.mjs reset
+      - name: Серверді іске қосу
+        run: |
+          node scripts/demo.mjs start > server.log 2>&1 &
+          for i in $(seq 1 60); do curl -sf http://localhost:3000/api/health && break; sleep 1; done
+          curl -sf http://localhost:3000/api/health
+      - name: Статикалық нұсқаны жинау
+        run: node scripts/build-pages.mjs --base "/${{ github.event.repository.name }}" --repo "${{ github.server_url }}/${{ github.repository }}"
+      - name: Сервер журналы (қате болса)
+        if: failure()
+        run: cat server.log || true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
