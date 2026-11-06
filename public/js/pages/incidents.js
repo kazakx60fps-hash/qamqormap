@@ -313,7 +313,10 @@ export default async function incidentsPage(ctx) {
       if (f.at) {
         const c = state.citiesById.get(f.at);
         map.flyTo([c.lat, c.lng], Math.min(c.zoom || 11, 11), { duration: 0.6 });
-      } else map.fitBounds(KZ_BOUNDS, { padding: [10, 10] });
+      } else {
+        map.invalidateSize({ pan: false });
+        map.fitBounds(KZ_BOUNDS, { padding: [10, 10], animate: false });
+      }
     }
   }
 
@@ -542,5 +545,6 @@ export default async function incidentsPage(ctx) {
   ctx.on('event-changed', () => load());
 
   initMap();
-  await load({ fit: !!f.at });
+  // Деректер келгенде картаны қайта сыйдырамыз (бет жүктелгенде контейнер өлшемі өзгеруі мүмкін)
+  await load({ fit: true });
 }

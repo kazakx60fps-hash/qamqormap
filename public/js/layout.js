@@ -46,7 +46,7 @@ function renderStaticBanner() {
   const measure = () => document.documentElement.style.setProperty('--static-h', `${el.offsetHeight}px`);
   if (!el.dataset.measured) { el.dataset.measured = '1'; window.addEventListener('resize', measure); }
   requestAnimationFrame(measure);
-  el.innerHTML = `<div class="container">${icon('info')}<span>${esc(t('staticDemo.banner'))}</span>${repo ? `<a href="${esc(repo)}#readme" target="_blank" rel="noopener" data-external>${esc(t('staticDemo.more'))}</a>` : ''}</div>`;
+  el.innerHTML = `<div class="container">${icon('info')}<span class="sb-long">${esc(t('staticDemo.banner'))}</span><span class="sb-short">${esc(t('staticDemo.short'))}</span>${repo ? `<a href="${esc(repo)}#readme" target="_blank" rel="noopener" data-external><span class="sb-long">${esc(t('staticDemo.more'))}</span><span class="sb-short">${esc(t('staticDemo.moreShort'))}</span></a>` : ''}</div>`;
 }
 
 export function renderHeader() {

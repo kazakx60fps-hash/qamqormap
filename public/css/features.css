@@ -342,7 +342,15 @@
 .static-banner .container { display: flex; gap: 10px; align-items: center; padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; }
 .static-banner svg { width: 18px; height: 18px; color: #FACC15; flex: none; }
 .static-banner a { color: #C7D4FF; font-weight: 700; }
+.static-banner .sb-short { display: none; }
 
+@media (max-width: 600px) {
+  .static-banner { font-size: var(--fs-xs); line-height: 1.4; }
+  .static-banner .container { padding-top: 6px; padding-bottom: 6px; gap: 4px 8px; flex-wrap: nowrap; align-items: flex-start; }
+  .static-banner a { white-space: nowrap; }
+  .static-banner .sb-long { display: none; }
+  .static-banner .sb-short { display: inline; }
+}
 @media (max-width: 960px) {
   .inc-body { grid-template-columns: 1fr; position: relative; }
   .inc-list { border-right: 0; padding-bottom: 96px; }

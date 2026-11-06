@@ -572,6 +572,7 @@ export default {
     resetView: 'Show all of Kazakhstan',
   },
   staticDemo: {
+    short: 'Demo version: training data, no sign-in or requests.', moreShort: 'Details',
     banner: 'Demo version (GitHub Pages): the data are training examples and no server is connected. Sign-in and requests work on the full server.',
     more: 'How to run the full version',
   },
