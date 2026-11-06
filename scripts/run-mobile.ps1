@@ -80,6 +80,20 @@ Say "     ал Expo Go-да оң жақ жоғарғы бұрыштағы бел
 Say "  4. Бұрын қосымшада сервер мекенжайын қолмен жазған болсаңыз: Профиль → Сервер мекенжайы → «Әдепкі мекенжайға қайтару»." 'Yellow'
 Say "Бұл терезені және сервер терезесін ЖАППАҢЫЗ — Expo Go осы компьютердегі серверден жұмыс істейді. Тоқтату: Ctrl+C." 'Red'
 Say ""
+# iPhone-дағы Expo Go үшін Expo CLI-ге кіру керек (бір рет; кейін есте сақталады). Кіру браузер арқылы — құпиясөз терезеге жазылмайды.
+$who = (& npx expo whoami 2>$null) | Out-String
+if ($LASTEXITCODE -ne 0 -or $who -match 'Not logged in' -or -not $who.Trim()) {
+  Say "Expo CLI-ге кірілмеген. iPhone-да Expo Go-мен ашу үшін бір рет кіру керек (Android-та міндетті емес)." 'Yellow'
+  $ans = Read-Host "Қазір браузер арқылы кіресіз бе? Enter = иә, N = жоқ"
+  if ($ans -notmatch '^[NnНн]') {
+    & npx expo login --browser
+    if ($LASTEXITCODE -eq 0) { Say "Expo CLI-ге кірдіңіз: $((& npx expo whoami) | Out-String)".Trim() 'Green' }
+    else { Say "Кіру аяқталмады. Кейін қолмен: cd mobile, сосын npx expo login" 'Yellow' }
+  }
+} else {
+  Say "Expo CLI аккаунты: $($who.Trim())  (Expo Go-да да осы аккаунт болуы керек)" 'Green'
+}
+
 if ($mode -eq 'tunnel') {
   # Expo SDK 58: жай --tunnel Expo аккаунтын талап етеді; "--tunnel ngrok" аккаунтсыз жұмыс істейді
   & npx expo start --tunnel ngrok --clear
