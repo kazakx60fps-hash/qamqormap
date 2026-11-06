@@ -47,7 +47,7 @@ Windows-та: **`IskeQosu-Demo.bat`** (бірінші рет PostgreSQL әкім
 ```bash
 cd mobile
 npm install
-npx expo start --tunnel --clear     # немесе түбірден: npm run mobile
+npx expo start --tunnel ngrok --clear   # немесе түбірден: npm run mobile
 ```
 
 * **Android:** Expo Go (ең соңғы нұсқа, SDK 58) → **Scan QR code**.

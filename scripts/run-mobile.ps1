@@ -78,4 +78,16 @@ Say "     iPhone: стандартты «Камера» қосымшасымен
 Say "  4. Бұрын қосымшада сервер мекенжайын қолмен жазған болсаңыз: Профиль → Сервер мекенжайы → «Әдепкі мекенжайға қайтару»." 'Yellow'
 Say "Бұл терезені және сервер терезесін ЖАППАҢЫЗ — Expo Go осы компьютердегі серверден жұмыс істейді. Тоқтату: Ctrl+C." 'Red'
 Say ""
-& npx expo start "--$mode" --clear
+if ($mode -eq 'tunnel') {
+  # Expo SDK 58: жай --tunnel Expo аккаунтын талап етеді; "--tunnel ngrok" аккаунтсыз жұмыс істейді
+  & npx expo start --tunnel ngrok --clear
+  if ($LASTEXITCODE -ne 0) {
+    Say ""
+    Say "Tunnel іске қосылмады. Мүмкін шешімдер:" 'Yellow'
+    Say "  а) Интернетті тексеріп, осы файлды қайта ашыңыз (ngrok кейде уақытша қолжетімсіз)." 'Yellow'
+    Say "  ә) Expo аккаунтымен (тегін): cd mobile, сосын  npx expo login  және  npx expo start --tunnel" 'Yellow'
+    Say "  б) Телефон мен компьютер бір Wi-Fi-да болса:  IskeQosu-Mobile.bat lan" 'Yellow'
+  }
+} else {
+  & npx expo start --lan --clear
+}

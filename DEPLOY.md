@@ -74,7 +74,7 @@ Render-дің тегін тарифінде жүктелген фотолар қ
 **`IskeQosu-Mobile.bat`** — екі рет басыңыз. Ол:
 1. серверді тексереді (қосылмаса, демо режимде жаңа терезеде іске қосады);
 2. бірінші рет пакеттерді орнатады (tunnel үшін `@expo/ngrok` та бар);
-3. `npx expo start --tunnel --clear` іске қосып, **QR-код** шығарады.
+3. `npx expo start --tunnel ngrok --clear` іске қосып, **QR-код** шығарады.
 
 Телефон мен компьютер бір Wi‑Fi-да болса, жылдамырақ LAN режимі: `IskeQosu-Mobile.bat lan`.
 Қолмен: `npm run mobile` (tunnel) немесе `npm run mobile:lan` — бұған дейін `npm run demo` іске қосылған болуы керек.

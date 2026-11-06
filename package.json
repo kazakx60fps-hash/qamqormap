@@ -20,7 +20,7 @@
     "build:pages": "node scripts/build-pages.mjs",
     "serve:pages": "node scripts/serve-pages.mjs",
     "e2e:pages": "node scripts/e2e-pages.mjs",
-    "mobile": "cd mobile && npx expo start --tunnel --clear",
+    "mobile": "cd mobile && npx expo start --tunnel ngrok --clear",
     "mobile:lan": "cd mobile && npx expo start --lan --clear"
   },
   "dependencies": {
