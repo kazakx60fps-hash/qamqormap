@@ -1,0 +1,64 @@
+# Презентация скриншоттары: тек `shots` тармағына push кезінде іске қосылады (main-ге әсер етпейді).
+# Демо дерекқор + сервер + мобильді қосымшаның веб-нұсқасы → Playwright → shots-out/ осы тармаққа commit.
+name: Presentation screenshots
+
+on:
+  push:
+    branches: [shots]
+    paths-ignore: ['shots-out/**']
+
+permissions:
+  contents: write
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: qamqor
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: qamqormap
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U qamqor" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://qamqor:ci_only_password@localhost:5432/qamqormap
+      DEMO_DATABASE_URL: postgres://qamqor:ci_only_password@localhost:5432/qamqormap_demo
+      RATE_LIMIT_SCALE: '100'
+      CORS_ORIGINS: http://localhost:8081
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: node scripts/demo.mjs reset
+      - name: Сервер
+        run: |
+          node scripts/demo.mjs start > server.log 2>&1 &
+          for i in $(seq 1 60); do curl -sf http://localhost:3000/api/health && break; sleep 1; done
+      - name: Мобильді қосымшаның веб-нұсқасы
+        working-directory: mobile
+        run: |
+          npm ci --no-audit --no-fund
+          npx expo export --platform web --output-dir dist-web
+          node scripts/serve-web.mjs > ../web.log 2>&1 &
+          sleep 2
+      - name: Playwright
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1
+          npx playwright install --with-deps chromium
+      - name: Скриншоттар
+        run: OUT=shots-out node scripts/shots.mjs
+      - name: Журнал (қате болса)
+        if: failure()
+        run: tail -50 server.log web.log || true
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add shots-out
+          git commit -m "Презентация скриншоттары" || exit 0
+          git push
